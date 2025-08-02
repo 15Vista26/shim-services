@@ -14,7 +14,7 @@ import { getAllServices, addService } from './models/service.js'; // Import serv
 import { getAllServicesForProvider, addNewServiceForProvider } from './models/sp_services.js';
 import { getAllCities, addCity } from './models/city.js';
 import { addBookingPost } from './models/bookingPost.js';
-import { updateBookingStatus, updateBookingStatusAfterPayment, updateBookingStatusAfterCheckbox} from './models/updateBooking.js';
+// import { updateBookingStatus, updateBookingStatusAfterPayment, updateBookingStatusAfterCheckbox} from './models/updateBooking.js';
 import { addBill,getAllBills,getBillById,updateRazorpayPaymentId, cashPayment } from './models/bill.js';
 
 // Load environment variables
@@ -411,46 +411,46 @@ app.get('/available-bookings/:serviceName', (req, res) => {
 
 //update booking status from pending to scheduled by Service Provider
 
-app.put('/update-status/:bookingId', (req, res) => {
-  const { bookingId } = req.params; // Get the booking ID from the route parameter
-  const { newStatus } = req.body;
-  const {SP_Email}=req.body;
-  // console.log(newStatus);
-   // Get the new status from the request body
+// app.put('/update-status/:bookingId', (req, res) => {
+//   const { bookingId } = req.params; // Get the booking ID from the route parameter
+//   const { newStatus } = req.body;
+//   const {SP_Email}=req.body;
+//   // console.log(newStatus);
+//    // Get the new status from the request body
 
-  if (!newStatus) {
-    return res.status(400).json({ error: 'New status is required' });
-  }
+//   if (!newStatus) {
+//     return res.status(400).json({ error: 'New status is required' });
+//   }
 
-  // Call the function to update the booking status
-  updateBookingStatus(bookingId, newStatus,SP_Email, (err, result) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.status(200).json({ message: 'Booking status updated successfully', result });
-  });
-});
+//   // Call the function to update the booking status
+//   updateBookingStatus(bookingId, newStatus,SP_Email, (err, result) => {
+//     if (err) {
+//       return res.status(500).json({ error: err.message });
+//     }
+//     res.status(200).json({ message: 'Booking status updated successfully', result });
+//   });
+// });
 
-app.put('/bookStatusAfterPayment/:bookId', (req, res) => {
-  const { bookId } = req.params;
-  const { newStatus } = req.body;
-  // console.log("Book id",bookId);
-  // console.log("Status",newStatus);
+// app.put('/bookStatusAfterPayment/:bookId', (req, res) => {
+//   const { bookId } = req.params;
+//   const { newStatus } = req.body;
+//   // console.log("Book id",bookId);
+//   // console.log("Status",newStatus);
   
   
-  // Ensure newStatus and bookingId are provided
-  if (!newStatus || !bookId) {
-    return res.status(400).json({ error: 'Booking ID and new status are required.' });
-  }
+//   // Ensure newStatus and bookingId are provided
+//   if (!newStatus || !bookId) {
+//     return res.status(400).json({ error: 'Booking ID and new status are required.' });
+//   }
 
-  // Call the function to update the booking status
-  updateBookingStatusAfterPayment(bookId, newStatus, (err, result) => {
-    if (err) {
-      return res.status(500).json({ error: err.message, details: err });
-    }
-    res.status(200).json({ message: 'Booking status updated successfully', result });
-  });
-});
+//   // Call the function to update the booking status
+//   updateBookingStatusAfterPayment(bookId, newStatus, (err, result) => {
+//     if (err) {
+//       return res.status(500).json({ error: err.message, details: err });
+//     }
+//     res.status(200).json({ message: 'Booking status updated successfully', result });
+//   });
+// });
 
 
 
@@ -621,18 +621,18 @@ app.put('/bills/:billId', (req, res) => {
 
 
 //checkbox
-app.put('/booking/completion/:bookingId', (req, res) => {
-  const bookingId = req.params.bookingId;
+// app.put('/booking/completion/:bookingId', (req, res) => {
+//   const bookingId = req.params.bookingId;
 
-  // Call the database function to update the booking status
-  updateBookingStatusAfterCheckbox(bookingId, (error, result) => {
-    if (error) {
-      return res.status(500).json({ error: 'Error updating booking status', details: error });
-    }
+//   // Call the database function to update the booking status
+//   updateBookingStatusAfterCheckbox(bookingId, (error, result) => {
+//     if (error) {
+//       return res.status(500).json({ error: 'Error updating booking status', details: error });
+//     }
 
-    res.status(200).json({ message: 'Booking status updated to Completed', result });
-  });
-});
+//     res.status(200).json({ message: 'Booking status updated to Completed', result });
+//   });
+// });
 
 // apis for salary 
 // API to fetch total cost for a service provider
